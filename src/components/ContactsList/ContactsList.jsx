@@ -12,10 +12,10 @@ function ContactList() {
 
   return (
     <List>
-      {filteredContacts.map(({ name, id, number }) => {
+      {filteredContacts.map(contact => {
         return (
-          <Item key={id}>
-            <ContactItem name={name} number={number} id={id} />
+          <Item key={contact.id}>
+            <ContactItem contact={contact} />
           </Item>
         );
       })}
