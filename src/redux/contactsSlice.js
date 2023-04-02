@@ -20,6 +20,7 @@ const contactsSlice = createSlice({
     builder.addCase(fetchContacts.fulfilled, (state, action) => {
       state.isLoading = false;
       state.items = action.payload;
+      console.log(action);
       state.error = null;
     });
 
@@ -28,8 +29,14 @@ const contactsSlice = createSlice({
     });
     builder.addCase(deleteContact.fulfilled, (state, action) => {
       state.isLoading = false;
+      const index = state.items.findIndex(
+        contact => contact.id === action.meta.arg
+      );
+      console.log(action);
+      state.items.splice(index, 1);
       state.error = null;
-      state.items = state.items.filter(item => item.id !== action.payload);
+
+      // state.items = state.items.filter(item => item.id !== action.payload);
     });
     builder.addMatcher(isRejectedAction, (state, action) => {
       state.isLoading = false;
