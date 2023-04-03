@@ -11,15 +11,13 @@ function Filter() {
 
   return (
     <form>
-      <label>
-        Find contacts by name
-        <DebounceInput
-          element={Input}
-          minLength={1}
-          debounceTimeout={300}
-          onChange={handleInputChange}
-        />
-      </label>
+      <DebounceInput
+        element={Input}
+        minLength={1}
+        debounceTimeout={300}
+        onChange={handleInputChange}
+        placeholder={'filter by name'}
+      />
     </form>
   );
 }

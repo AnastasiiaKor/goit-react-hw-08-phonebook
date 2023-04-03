@@ -1,4 +1,4 @@
-import { getContacts, getFilter } from 'redux/selectors';
+import { getContacts, getFilter, getError, getLoading } from 'redux/selectors';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import ContactItem from '../ContactItem';
@@ -8,7 +8,10 @@ import { fetchContacts } from 'redux/operations';
 function ContactList() {
   const contacts = useSelector(getContacts);
   const filter = useSelector(getFilter);
+  const error = useSelector(getError);
+  const isLoading = useSelector(getLoading);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(fetchContacts());
   }, [dispatch]);
@@ -18,15 +21,18 @@ function ContactList() {
   );
 
   return (
-    <List>
-      {filteredContacts.map(contact => {
-        return (
-          <Item key={contact.id}>
-            <ContactItem contact={contact} />
-          </Item>
-        );
-      })}
-    </List>
+    <>
+      {isLoading && <div>Loading contacts...</div>}
+      <List>
+        {filteredContacts.map(contact => {
+          return (
+            <Item key={contact.id}>
+              <ContactItem contact={contact} />
+            </Item>
+          );
+        })}
+      </List>
+    </>
   );
 }
 

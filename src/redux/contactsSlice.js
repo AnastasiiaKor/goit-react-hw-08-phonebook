@@ -48,41 +48,5 @@ const contactsSlice = createSlice({
     });
   },
 });
-// [fetchContacts.fulfilled](state, action) {
-//   state.isLoading = false;
-//   state.items = action.payload;
-//   state.error = null;
-// },
-// [fetchContacts.rejected](state, action) {
-//   state.isLoading = false;
-//   state.error = action.payload;
-// },
-// },
-// reducers: {
-//   addContact: {
-//     reducer(state, action) {
-//       return {
-//         ...state,
-//         items: [...state.items, action.payload],
-//       };
-//     },
-//     prepare(values) {
-//       return {
-//         payload: {
-//           id: nanoid(),
-//           name: values.name,
-//           number: values.number,
-//         },
-//       };
-//     },
-//   },
-//   deleteContact(state, action) {
-//     return {
-//       ...state,
-//       items: state.items.filter(item => item.id !== action.payload),
-//     };
-//   },
-// },
-// });
 
 export const contactsReducer = contactsSlice.reducer;
