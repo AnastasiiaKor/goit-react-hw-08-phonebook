@@ -1,7 +1,8 @@
 import React from 'react';
 import { nanoid } from 'nanoid';
 import { addContact } from 'redux/operations';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getContacts } from 'redux/selectors';
 import { Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Label, Button, Input, AddContactForm } from './ContactForm.styled';
@@ -15,29 +16,27 @@ const initialValues = {
 
 const schema = Yup.object().shape({
   name: Yup.string()
-    .matches(
-      /^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/,
-      'The name may contain only letters numerals'
-    )
     .min(3, 'Too short')
     .max(30, 'Too long')
     .required('Required')
     .trim(),
   number: Yup.string()
-    .matches(
-      /\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/,
-      'The number may contain only letters'
-    )
     .min(7, 'Too short')
     .max(20, 'Too long')
     .required('Required')
     .trim(),
 });
 function ContactForm() {
+  const contacts = useSelector(getContacts);
+  console.log(contacts);
+
   const dispatch = useDispatch();
 
   const handleSubmit = (values, { resetForm }) => {
-    console.log(values);
+    if (contacts.map(contact => contact.name).includes(values.name)) {
+      alert(`${values.name} is already in your contacts`);
+      return;
+    }
     dispatch(addContact(values));
     resetForm();
   };
