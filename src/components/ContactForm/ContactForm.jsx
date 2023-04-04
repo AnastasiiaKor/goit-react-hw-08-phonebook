@@ -28,7 +28,6 @@ const schema = Yup.object().shape({
 });
 function ContactForm() {
   const contacts = useSelector(getContacts);
-  console.log(contacts);
 
   const dispatch = useDispatch();
 
