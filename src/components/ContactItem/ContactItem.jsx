@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
-import { Name, Button } from './ContactItem.styled';
+import { Name, Button, Phone } from './ContactItem.styled';
 import { useDispatch } from 'react-redux';
-import { deleteContact } from 'redux/operations';
+import { deleteContact } from 'redux/Contacts/operations';
+import { FaTrashAlt } from 'react-icons/fa';
 
 function ContactItem({ contact }) {
   const dispatch = useDispatch();
@@ -12,11 +13,11 @@ function ContactItem({ contact }) {
 
   return (
     <>
-      <p>
-        <Name>{contact.name}:</Name> {contact.phone}
-      </p>
+      <Name>{contact.name}</Name>
+      <Phone>{contact.number}</Phone>
+
       <Button type="button" onClick={handleDelete}>
-        Delete
+        <FaTrashAlt />
       </Button>
     </>
   );
@@ -24,8 +25,9 @@ function ContactItem({ contact }) {
 ContactItem.propTypes = {
   contact: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    phone: PropTypes.string.isRequired,
+    number: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
   }).isRequired,
 };
+
 export default ContactItem;
